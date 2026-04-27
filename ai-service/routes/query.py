@@ -29,17 +29,18 @@ def query():
         context = "\n".join(sources)
 
         prompt = f"""
-You are an AI assistant.
+You are a professional AI assistant.
 
-Use ONLY the context below to answer the question clearly.
+Use ONLY the provided context.
+If context is insufficient, clearly say so.
+
+Answer in concise bullet points or short paragraphs.
 
 Context:
 {context}
 
 Question:
 {question}
-
-Return a helpful professional answer.
 """
 
         answer = groq.generate_text(prompt)

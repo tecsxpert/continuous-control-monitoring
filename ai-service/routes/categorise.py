@@ -21,17 +21,22 @@ def categorise():
             return jsonify({"error": "Text cannot be empty"}), 400
 
         prompt = f"""
-You are a classification AI.
+You are an expert text classification AI.
 
-Classify the following text into ONE of these categories only:
+Choose EXACTLY ONE category from:
 
-Security
-Performance
+Security = passwords, hacking, unauthorized access, leaks, threats
+Performance = slow systems, delays, speed, latency, downtime
+Compliance = audits, regulations, policy adherence, legal review
+Operations = backups, maintenance, deployments, daily processes
+Finance = payroll, salary, budget, invoices, finance reports
+HR = employees, harassment, complaints, hiring, leave, team matters
+General = meetings, announcements, uncategorized topics
 
-Return ONLY valid JSON in this format:
+Return ONLY valid JSON:
 {{
   "category": "CategoryName",
-  "confidence": 0.95,
+  "confidence": 0.00,
   "reasoning": "Short reason"
 }}
 

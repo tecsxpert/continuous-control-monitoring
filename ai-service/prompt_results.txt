@@ -1,0 +1,12 @@
+Day 6 Prompt Tuning Results
+
+Initial categorisation had weak accuracy on Finance, HR, Compliance and General cases.
+
+Prompt updated with category definitions and clearer instructions.
+
+Final Results:
+- /categorise accuracy significantly improved
+- /query responses became concise and safer
+- Weak-context handling improved
+
+Overall Day 6 task completed successfully.
