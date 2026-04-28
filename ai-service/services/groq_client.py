@@ -6,49 +6,44 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO)
 
 class GroqClient:
     def __init__(self):
         api_key = os.getenv("GROQ_API_KEY")
 
         if not api_key:
-            raise ValueError("GROQ_API_KEY not found in .env")
+            raise ValueError("GROQ_API_KEY not found")
 
         self.client = Groq(api_key=api_key)
         self.model = "llama-3.3-70b-versatile"
 
+        self.response_times = []
+
     def generate_text(self, prompt):
-        retries = 3
-        delay = 2
+        start = time.time()
 
-        for attempt in range(1, retries + 1):
-            try:
-                logging.info(f"Attempt {attempt}: Sending request to Groq")
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.5,
+                max_tokens=300
+            )
 
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.5,
-                    max_tokens=300
-                )
+            result = response.choices[0].message.content.strip()
 
-                result = response.choices[0].message.content.strip()
+            elapsed = (time.time() - start) * 1000
+            self.response_times.append(elapsed)
 
-                logging.info("Response received successfully")
-                return result
+            self.response_times = self.response_times[-10:]
 
-            except Exception as error:
-                logging.error(f"Attempt {attempt} failed: {error}")
+            return result
 
-                if attempt < retries:
-                    logging.info(f"Retrying in {delay} seconds...")
-                    time.sleep(delay)
-                    delay *= 2
-                else:
-                    return "Error: Unable to get response from Groq after 3 attempts"
+        except Exception as e:
+            return "Error: " + str(e)
+
+    def get_avg_response_time(self):
+        if not self.response_times:
+            return 0
+        return sum(self.response_times) / len(self.response_times)

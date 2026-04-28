@@ -5,9 +5,13 @@ class ChromaClient:
     def __init__(self):
         self.client = chromadb.PersistentClient(path="chroma_data")
 
-        self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2"
-        )
+        try:
+            self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
+                model_name="all-MiniLM-L6-v2"
+            )
+        except Exception as e:
+            print("Error loading embedding model:", e)
+            self.embedding_function = None
 
         self.collection = self.client.get_or_create_collection(
             name="documents",
@@ -28,3 +32,6 @@ class ChromaClient:
         )
 
         return results["documents"][0]
+    
+    def get_document_count(self):
+         return self.collection.count()
