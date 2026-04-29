@@ -5,6 +5,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,18 +17,27 @@ const LoginPage = () => {
       return;
     }
 
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("user", username);
-    navigate("/");
+    setLoading(true);
+    setError("");
+
+    // ✅ Simulate login delay
+    setTimeout(() => {
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("user", username);
+      setLoading(false);
+      navigate("/");
+    }, 800);
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-100 to-purple-100">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-96">
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md mx-4">
 
-        {/* Logo / Title */}
-        <div className="text-center mb-6">
-          <div className="text-5xl mb-2">🛡️</div>
+        {/* ✅ Logo */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-[#1B4F8A] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span className="text-3xl">🛡️</span>
+          </div>
           <h1 className="text-2xl font-bold text-[#1B4F8A]">
             Control Monitoring
           </h1>
@@ -38,56 +48,65 @@ const LoginPage = () => {
 
         <form onSubmit={handleLogin} className="space-y-4">
 
-          {/* Error Message */}
+          {/* ✅ Error Message */}
           {error && (
-            <div className="bg-red-50 border border-red-300 text-red-600 text-sm px-4 py-2 rounded-lg">
-              {error}
+            <div className="bg-red-50 border border-red-300 text-red-600 text-sm px-4 py-3 rounded-xl">
+              ⚠️ {error}
             </div>
           )}
 
-          {/* Username */}
+          {/* ✅ Username */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Username
             </label>
             <input
               placeholder="Enter your username"
-              className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="border border-gray-300 p-3 w-full rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm transition"
               value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-                setError("");
-              }}
+              onChange={(e) => { setUsername(e.target.value); setError(""); }}
             />
           </div>
 
-          {/* Password */}
+          {/* ✅ Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Password
             </label>
             <input
               type="password"
               placeholder="Enter your password"
-              className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="border border-gray-300 p-3 w-full rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm transition"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setError("");
-              }}
+              onChange={(e) => { setPassword(e.target.value); setError(""); }}
             />
           </div>
 
-          {/* Submit */}
-          <button className="bg-[#1B4F8A] hover:bg-blue-800 text-white w-full py-2.5 rounded-lg font-semibold transition">
-            Login
+          {/* ✅ Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-[#1B4F8A] hover:bg-blue-800 disabled:bg-gray-400 text-white w-full py-3 rounded-xl font-semibold transition flex items-center justify-center gap-2 text-sm"
+          >
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Signing in...
+              </>
+            ) : "Sign In"}
           </button>
 
         </form>
 
-        <p className="text-center text-xs text-gray-400 mt-6">
-          Continuous Control Monitoring System
-        </p>
+        {/* ✅ Footer */}
+        <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+          <p className="text-xs text-gray-400">
+            Continuous Control Monitoring System
+          </p>
+          <p className="text-xs text-gray-300 mt-1">
+            Version 1.0 — Capstone Project 2026
+          </p>
+        </div>
 
       </div>
     </div>
