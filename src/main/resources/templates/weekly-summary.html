@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        .header { background: #1B4F8A; color: white; padding: 16px 24px; }
+        .body   { padding: 24px; }
+        .stat   { display:inline-block; background:#f0f4fa; border-radius:8px;
+                  padding:16px 24px; margin:8px; text-align:center; min-width:100px; }
+        .stat .num { font-size:2em; font-weight:bold; color:#1B4F8A; }
+        .footer { font-size: 11px; color: #999; padding: 16px 24px;
+                  border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+<div class="header"><h2>📊 Weekly Compliance Summary</h2></div>
+<div class="body">
+    <p>Here is this week's compliance control summary:</p>
+    <div>
+        <div class="stat">
+            <div class="num" th:text="${total}">0</div>
+            <div>Total</div>
+        </div>
+        <div class="stat">
+            <div class="num" style="color:#27ae60" th:text="${compliant}">0</div>
+            <div>Compliant</div>
+        </div>
+        <div class="stat">
+            <div class="num" style="color:#e74c3c" th:text="${nonCompliant}">0</div>
+            <div>Non-Compliant</div>
+        </div>
+        <div class="stat">
+            <div class="num" style="color:#c0392b" th:text="${overdue}">0</div>
+            <div>Overdue</div>
+        </div>
+    </div>
+    <p style="margin-top:24px;">Please review non-compliant and overdue items this week.</p>
+</div>
+<div class="footer">Continuous Control Monitoring System — weekly report</div>
+</body>
+</html>
