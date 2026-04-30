@@ -4,10 +4,9 @@ import json
 
 class RedisCache:
     def __init__(self):
-        # connect to Redis
         self.client = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
 
-        self.ttl = 900  # 15 minutes
+        self.ttl = 900  
 
         self.hits = 0
         self.misses = 0

@@ -60,10 +60,11 @@ def query():
         prompt = f"""
 You are a professional AI assistant.
 
-Use ONLY the provided context.
-If context is insufficient, clearly say so.
-
-Answer in concise bullet points or short paragraphs.
+RULES:
+- First try to answer using the context
+- If context is weak, give a GENERAL helpful answer based on knowledge
+- Do NOT just say "insufficient context"
+- Always provide useful guidance
 
 Context:
 {context}
