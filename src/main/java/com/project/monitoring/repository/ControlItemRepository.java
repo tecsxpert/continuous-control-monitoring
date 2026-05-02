@@ -58,4 +58,7 @@ public interface ControlItemRepository extends JpaRepository<ControlItem, Long> 
 
     @Query("SELECT AVG(c.riskScore) FROM ControlItem c WHERE c.isDeleted = false")
     Double averageRiskScore();
+
+    @Query("SELECT c FROM ControlItem c WHERE c.isDeleted = false ORDER BY c.createdAt DESC")
+    List<ControlItem> findAllActiveOrderByCreatedAt();
 }
