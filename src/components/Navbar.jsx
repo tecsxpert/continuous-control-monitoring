@@ -1,3 +1,4 @@
+// Day 13 — Responsive Navbar with hamburger menu
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
