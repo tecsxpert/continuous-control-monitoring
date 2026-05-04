@@ -1,0 +1,18 @@
+Day 10 - AI Quality Review
+
+/categorise:
+Accuracy: 5/5
+Correct category: 5/5
+Confidence: 5/5
+
+/query:
+Initial score: 3.7/5 (insufficient context responses)
+
+Fix applied:
+- Updated prompt to allow general knowledge answers when context is weak
+- Cleared Redis cache to apply new prompt behavior
+
+Final score: 5/5
+
+Result:
+Target achieved (>= 4/5)
