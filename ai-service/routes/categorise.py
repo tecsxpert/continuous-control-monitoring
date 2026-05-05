@@ -41,7 +41,7 @@ Security = passwords, hacking, unauthorized access, leaks, threats
 Performance = slow systems, delays, speed, latency, downtime
 Compliance = audits, regulations, policy adherence, legal review
 Operations = backups, maintenance, deployments, daily processes
-Finance = payroll, salary, budget, invoices, finance reports
+Finance = payroll, salary, budget, invoices, finance reports, financial delays
 HR = employees, harassment, complaints, hiring, leave, team matters
 General = meetings, announcements, uncategorized topics
 

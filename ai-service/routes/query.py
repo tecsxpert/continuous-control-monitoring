@@ -64,6 +64,8 @@ RULES:
 - If context is weak, give a GENERAL helpful answer based on knowledge
 - Do NOT just say "insufficient context"
 - Always provide useful guidance
+- Answer in short bullet points
+- Keep response concise (5-7 lines max)
 
 Context:
 {context}
