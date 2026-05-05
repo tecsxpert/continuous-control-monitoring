@@ -28,7 +28,7 @@ class GroqClient:
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.5,
-                max_tokens=300
+                max_tokens=120
             )
 
             result = response.choices[0].message.content.strip()

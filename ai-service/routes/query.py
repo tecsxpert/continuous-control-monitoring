@@ -74,14 +74,7 @@ Question:
 """
 
 
-        response = groq.client.chat.completions.create(
-            model=groq.model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.5,
-            max_tokens=300
-        )
-
-        answer = response.choices[0].message.content.strip()
+        answer = groq.generate_text(prompt)
 
 
         tokens_used = len(prompt.split()) + len(answer.split())

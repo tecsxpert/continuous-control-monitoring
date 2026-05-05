@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from services.groq_client import GroqClient
+from services.cache_instance import cache
 import json
 import re
 
@@ -20,6 +21,13 @@ def categorise():
         if not user_text:
             return jsonify({"error": "Text cannot be empty"}), 400
 
+
+        cached = cache.get(user_text)
+
+        if cached:
+            return jsonify(cached)
+
+
         prompt = f"""
 You are an expert text classification AI.
 
@@ -36,7 +44,7 @@ General = meetings, announcements, uncategorized topics
 Return ONLY valid JSON:
 {{
   "category": "CategoryName",
-  "confidence": 0.00,
+  "confidence": 0.0,
   "reasoning": "Short reason"
 }}
 
@@ -56,6 +64,10 @@ Text:
             })
 
         result = json.loads(match.group())
+
+
+        cache.set(user_text, result)
+
 
         return jsonify(result)
 
