@@ -8,6 +8,7 @@ categorise_bp = Blueprint("categorise", __name__)
 
 client = GroqClient()
 
+
 @categorise_bp.route("/categorise", methods=["POST"])
 def categorise():
     try:
@@ -25,6 +26,9 @@ def categorise():
         cached = cache.get(user_text)
 
         if cached:
+            cached["meta"] = {
+                "is_fallback": False
+            }
             return jsonify(cached)
 
 
@@ -52,18 +56,42 @@ Text:
 {user_text}
 """
 
-        response = client.generate_text(prompt)
 
-        match = re.search(r'\{.*\}', response, re.DOTALL)
+        ai_response = client.generate_text(prompt)
+
+        if ai_response["success"]:
+            response_text = ai_response["text"]
+            is_fallback = False
+        else:
+            return jsonify({
+                "category": "General",
+                "confidence": 0.3,
+                "reasoning": "Fallback due to AI error",
+                "meta": {
+                    "is_fallback": True
+                }
+            })
+
+
+        match = re.search(r'\{.*\}', response_text, re.DOTALL)
 
         if not match:
             return jsonify({
                 "category": "General",
                 "confidence": 0.50,
-                "reasoning": "Could not parse AI response"
+                "reasoning": "Could not parse AI response",
+                "meta": {
+                    "is_fallback": True
+                }
             })
 
+
         result = json.loads(match.group())
+
+
+        result["meta"] = {
+            "is_fallback": False
+        }
 
 
         cache.set(user_text, result)
@@ -75,5 +103,8 @@ Text:
         return jsonify({
             "category": "General",
             "confidence": 0.0,
-            "reasoning": str(error)
+            "reasoning": str(error),
+            "meta": {
+                "is_fallback": True
+            }
         }), 500
