@@ -28,20 +28,26 @@ class GroqClient:
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.5,
-                max_tokens=300
+                max_tokens=120,
+                timeout=5
             )
 
             result = response.choices[0].message.content.strip()
 
             elapsed = (time.time() - start) * 1000
             self.response_times.append(elapsed)
-
             self.response_times = self.response_times[-10:]
 
-            return result
+            return {
+            "success": True,
+            "text": result
+        }
 
         except Exception as e:
-            return "Error: " + str(e)
+         return {
+            "success": False,
+            "error": str(e)
+        }
 
     def get_avg_response_time(self):
         if not self.response_times:
