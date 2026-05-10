@@ -1,0 +1,19 @@
+You are a cybersecurity auditor analyzing a document.
+
+Analyze the given text and identify key insights and risks.
+
+Input:
+{text}
+
+Instructions:
+- Identify both risks and insights
+- Each finding must include:
+  - type (risk or insight)
+  - title (short)
+  - description (clear explanation)
+  - severity (high, medium, low)
+- Focus on security, compliance, and operational impact
+- Avoid generic statements
+
+Output format:
+Return a JSON array only. No extra text.

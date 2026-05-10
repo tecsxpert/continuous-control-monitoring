@@ -1,0 +1,13 @@
+Incident response procedures help organizations manage cybersecurity incidents effectively.
+
+Organizations should maintain an incident response plan.
+
+Security incidents must be identified and reported immediately.
+
+Incident response teams should document all actions performed during investigations.
+
+Critical incidents must be escalated quickly.
+
+Post-incident reviews should identify root causes and preventive measures.
+
+Employees should receive incident response awareness training.

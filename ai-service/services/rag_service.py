@@ -1,11 +1,13 @@
 from sentence_transformers import SentenceTransformer
 import chromadb
 import re
+import os
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 client = chromadb.Client()
-collection = client.get_or_create_collection(name="controls")
+collection = client.get_or_create_collection("rag_docs")
 
 
 def load_documents(file_path):
@@ -37,8 +39,7 @@ def store_embeddings(chunks):
 
     collection = client.get_or_create_collection(name="controls")
 
-    embeddings = model.encode(chunks)
-
+    embeddings = embedding_model.encode(chunks)
     for i, chunk in enumerate(chunks):
         collection.add(
             documents=[chunk],
@@ -46,19 +47,37 @@ def store_embeddings(chunks):
             ids=[f"id_{i}"]
         )
 
+def embed(text):
+    return embedding_model.encode(text).tolist()
 
 def run_rag_pipeline():
-    text = load_documents("data/controls.txt")
-    chunks = chunk_text(text, chunk_size=100, overlap=20)
-    store_embeddings(chunks)
-    print("RAG pipeline completed. Stored", len(chunks), "chunks.")
+    DATA_FOLDER = "data"
 
-def retrieve(query, top_k=2):
-    query_embedding = model.encode([query])[0]
+    documents = []
+
+    for filename in os.listdir(DATA_FOLDER):
+        filepath = os.path.join(DATA_FOLDER, filename)
+
+        if filename.endswith(".txt"):
+            with open(filepath, "r", encoding="utf-8") as f:
+                documents.append(f.read())
+
+    all_chunks = []
+
+    for doc in documents:
+        chunks = chunk_text(doc)
+        all_chunks.extend(chunks)
+
+    store_embeddings(all_chunks)
+
+    print(f"RAG pipeline completed. Stored {len(all_chunks)} chunks.")
+
+def retrieve(query):
+    query_embedding = embed(query)
 
     results = collection.query(
-        query_embeddings=[query_embedding.tolist()],
-        n_results=top_k
+        query_embeddings=[query_embedding],
+        n_results=2
     )
 
-    return results["documents"][0]
+    return results.get("documents", [[]])[0]

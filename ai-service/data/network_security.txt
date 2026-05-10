@@ -1,0 +1,13 @@
+Network security protects systems and data from unauthorized access.
+
+Firewalls should be configured to restrict unnecessary traffic.
+
+Unused ports and services must be disabled.
+
+Network traffic should be monitored continuously.
+
+Intrusion detection systems should be implemented.
+
+Remote access must require secure authentication.
+
+Public-facing systems should be isolated from internal networks.

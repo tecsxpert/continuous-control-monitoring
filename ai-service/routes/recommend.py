@@ -40,6 +40,11 @@ def recommend():
 
     try:
         recommendations = json.loads(ai_output)
+    except Exception:
+        return jsonify({
+            "status": "failed",
+            "error": "Invalid AI response"
+        }), 500
 
         if not isinstance(recommendations, list) or len(recommendations) != 3:
             raise ValueError("AI did not return exactly 3 recommendations")

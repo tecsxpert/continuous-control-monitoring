@@ -1,0 +1,11 @@
+Multi-factor authentication provides an additional security layer.
+
+MFA reduces the risk of account compromise caused by stolen passwords.
+
+Administrative accounts must always use MFA.
+
+SMS-based MFA should be avoided when possible.
+
+Authenticator applications are preferred over SMS authentication.
+
+Failed MFA attempts should be monitored and logged.

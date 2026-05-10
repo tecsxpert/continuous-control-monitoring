@@ -1,0 +1,13 @@
+System logs help detect suspicious activities and security incidents.
+
+Critical systems must maintain centralized logging.
+
+Logs should include:
+- Login attempts
+- Access failures
+- Privilege changes
+- Administrative actions
+
+Logs must be retained for at least 90 days.
+
+Security teams should monitor logs regularly.

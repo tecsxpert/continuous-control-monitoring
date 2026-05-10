@@ -1,0 +1,13 @@
+Backup and recovery processes ensure business continuity after failures or attacks.
+
+Critical systems and data must be backed up regularly.
+
+Backups should be stored securely and tested periodically.
+
+Recovery procedures must be documented.
+
+Organizations should define recovery time objectives.
+
+Backup failures should generate alerts.
+
+Backup data should be encrypted and protected from unauthorized access.

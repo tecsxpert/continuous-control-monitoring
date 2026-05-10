@@ -1,0 +1,13 @@
+Encryption protects sensitive information from unauthorized access.
+
+Sensitive data must be encrypted both at rest and in transit.
+
+Strong encryption standards such as AES-256 should be used.
+
+Encryption keys must be securely managed and rotated regularly.
+
+TLS should be enabled for all web applications.
+
+Unencrypted sensitive data must not be stored in databases or logs.
+
+Backup data must also be encrypted.

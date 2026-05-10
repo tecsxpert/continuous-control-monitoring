@@ -5,7 +5,8 @@ from flask_executor import Executor
 from routes.issue import issue_bp
 from routes.describe import describe_bp
 from routes.recommend import recommend_bp
-
+from routes.analyse import analyse_bp
+from routes.batch import batch_bp
 def create_app():
     app = Flask(__name__)
     CORS(app)
@@ -17,6 +18,8 @@ def create_app():
     app.register_blueprint(recommend_bp, url_prefix="/recommend")
     app.register_blueprint(report_bp, url_prefix="/generate-report")
     app.register_blueprint(issue_bp, url_prefix="/issue")
+    app.register_blueprint(analyse_bp, url_prefix="/analyse-document")
+    app.register_blueprint(batch_bp, url_prefix="/batch-process")
     
     @app.route('/health')
     def health():

@@ -1,0 +1,13 @@
+Organizations must comply with cybersecurity and privacy regulations.
+
+Compliance requirements may include GDPR, HIPAA, PCI-DSS, and ISO 27001.
+
+Sensitive customer information must be protected.
+
+Audit logs should be retained according to compliance policies.
+
+Security controls should be reviewed regularly.
+
+Compliance violations may result in legal and financial penalties.
+
+Employees should receive compliance awareness training.

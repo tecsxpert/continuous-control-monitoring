@@ -1,0 +1,15 @@
+Access control ensures that users only access resources required for their role.
+
+Organizations should follow the principle of least privilege.
+
+Administrative access must be restricted to authorized personnel only.
+
+Role-based access control should be implemented.
+
+Inactive accounts must be disabled immediately.
+
+Shared accounts should not be used.
+
+Privileged access should be reviewed regularly.
+
+Unauthorized access attempts must be logged and investigated.

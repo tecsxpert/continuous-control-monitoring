@@ -19,3 +19,30 @@ def generate_response(prompt):
     except Exception as e:
         print("Groq Error:", e)
         return None
+
+def stream_response(title, description):
+    from groq import Groq
+    import os
+
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+    prompt = f"""
+Generate a professional audit report.
+
+Title: {title}
+Description: {description}
+"""
+
+    completion = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[{"role": "user", "content": prompt}],
+        stream=True
+    )
+    for chunk in completion:
+        if not chunk.choices:
+            continue
+
+        delta = chunk.choices[0].delta
+
+        if hasattr(delta, "content") and delta.content:
+            yield delta.content
